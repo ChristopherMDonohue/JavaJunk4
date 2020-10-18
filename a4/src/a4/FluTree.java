@@ -12,6 +12,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.swing.text.html.HTMLDocument.Iterator;
+
 /** An instance of FluTree represents the spread of a flu among a Network of people. <br>
  * In this model, each person can "catch" the flu from only a single person. <br>
  * The root of the FluTree is the person who first got the flu. <br>
@@ -127,13 +129,21 @@ public class FluTree {
      * -- c is already in this FluTree, or<br>
      * -- p is not in this FluTree. */
     public FluTree insert(Person c, Person p) throws IllegalArgumentException {
-        // TODO 1
+        if (c==null||p==null||contains(c)||!contains(p)) {
+        	throw new IllegalArgumentException("Invalid Input");
+        }
+    	
+    	FluTree n1=node(p);
+        FluTree n2=new FluTree(c);
+        n1.children.add(n2);
+        return node(c);
+    	// TODO 1
         // This method should not be recursive.
         // Use method node(), above, and use no methods that are below.
         // DO NOT traverse the tree twice looking for the same node
         // ---don't duplicate work.
 
-        return null;
+        
     }
 
     /** C: = the number of nodes in this FluTree. <br>
@@ -141,7 +151,16 @@ public class FluTree {
     public int size() {
         // TODO 2. This method must be recursive.
         // State whether this is a searching or a counting method:
-        return -1;
+        if (childrenSize()==0) {
+        	return 1;
+        }
+        else {
+        	int s=0;
+        	Iterator<> it=children.iterator();
+        	while(it.hasNext()) {
+        		s=+size(it.next());
+        	}
+        }
     }
 
     /** E: = "this flu tree contains a node with person p." */
