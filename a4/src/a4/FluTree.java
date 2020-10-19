@@ -193,7 +193,7 @@ public class FluTree {
         // the tree. Do not have unnecessary calls that traverse the tree.
         // Study the two tutorials on processing recursive calls and use the
         // correct pattern here.
-        // State whether this is a searching or a counting method:
+        // State whether this is a searching or a counting method: counting
 
         // Here is recursive insight:
         // ... Let child c of the root contain p.
