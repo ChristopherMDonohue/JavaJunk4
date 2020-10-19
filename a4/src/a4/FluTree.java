@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.Iterator;
 
-import javax.swing.text.html.HTMLDocument.Iterator;
 
 /** An instance of FluTree represents the spread of a flu among a Network of people. <br>
  * In this model, each person can "catch" the flu from only a single person. <br>
@@ -199,6 +198,17 @@ public class FluTree {
         // Here is recursive insight:
         // ... Let child c of the root contain p.
         // ... Then the depth of p in the root = (1 + depth of p in c)
+    	if (root==p) {
+    		return 0;
+    	}
+    	else {
+    		for (FluTree c:children) {
+    			int d=c.depth(p);
+    			if (d>-1) {
+    				return d+1;
+    			}
+    		}
+    	}
 
         return -1;
     }
