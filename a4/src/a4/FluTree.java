@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.Iterator;
 
 import javax.swing.text.html.HTMLDocument.Iterator;
 
@@ -156,10 +157,11 @@ public class FluTree {
         }
         else {
         	int s=0;
-        	Iterator<> it=children.iterator();
+        	Iterator<FluTree> it=children.iterator();
         	while(it.hasNext()) {
-        		s=+size(it.next());
+        		s=s+it.next().size();
         	}
+        	return s;
         }
     }
 
