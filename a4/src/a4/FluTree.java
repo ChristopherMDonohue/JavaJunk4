@@ -1,7 +1,7 @@
 package a4;
-/* NetId(s): djg17
+/* NetId(s): ekp38
 
- * Name(s): David Gries
+ * Name(s): Elena Peot
  * What I thought about this assignment:
  *
  *
@@ -9,10 +9,9 @@ package a4;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.Iterator;
-
 
 /** An instance of FluTree represents the spread of a flu among a Network of people. <br>
  * In this model, each person can "catch" the flu from only a single person. <br>
@@ -129,38 +128,36 @@ public class FluTree {
      * -- c is already in this FluTree, or<br>
      * -- p is not in this FluTree. */
     public FluTree insert(Person c, Person p) throws IllegalArgumentException {
-        if (c==null||p==null||contains(c)||!contains(p)) {
-        	throw new IllegalArgumentException("Invalid Input");
+        if (c == null || p == null || contains(c) || !contains(p)) {
+            throw new IllegalArgumentException("Invalid Input");
         }
-    	
-    	FluTree n1=node(p);
-        FluTree n2=new FluTree(c);
+
+        FluTree n1= node(p);
+        FluTree n2= new FluTree(c);
         n1.children.add(n2);
         return node(c);
-    	// TODO 1
+        // TODO 1
         // This method should not be recursive.
         // Use method node(), above, and use no methods that are below.
         // DO NOT traverse the tree twice looking for the same node
         // ---don't duplicate work.
 
-        
     }
 
     /** C: = the number of nodes in this FluTree. <br>
      * Note: If this is a leaf, the size is 1 (just the root) */
     public int size() {
         // TODO 2. This method must be recursive.
-        // State whether this is a searching or a counting method:
-        if (childrenSize()==0) {
-        	return 1;
-        }
-        else {
-        	int s=0;
-        	Iterator<FluTree> it=children.iterator();
-        	while(it.hasNext()) {
-        		s=s+it.next().size();
-        	}
-        	return s;
+        // State whether this is a searching or a counting method: counting
+        if (childrenSize() == 0) {
+            return 1;
+        } else {
+            int s= 0;
+            Iterator<FluTree> it= children.iterator();
+            while (it.hasNext()) {
+                s= s + it.next().size();
+            }
+            return s;
         }
     }
 
@@ -173,11 +170,14 @@ public class FluTree {
         // r.equals(p)
         //
         // If you write this recursively,
-        // state whether this is a searching or a counting method:
+        // state whether this is a searching or a counting method: a searching method
         //
         // Recursive definition: This FluTree contains p iff the root of
         // this FluTree is p or if one of p's children contains p.
-
+        if (root.equals(p)) { return true; }
+        for (FluTree c : children) {
+            if (c.contains(p)) { return true; }
+        }
         return false;
     }
 
@@ -198,17 +198,14 @@ public class FluTree {
         // Here is recursive insight:
         // ... Let child c of the root contain p.
         // ... Then the depth of p in the root = (1 + depth of p in c)
-    	if (root==p) {
-    		return 0;
-    	}
-    	else {
-    		for (FluTree c:children) {
-    			int d=c.depth(p);
-    			if (d>-1) {
-    				return d+1;
-    			}
-    		}
-    	}
+        if (root == p) {
+            return 0;
+        } else {
+            for (FluTree c : children) {
+                int d= c.depth(p);
+                if (d > -1) { return d + 1; }
+            }
+        }
 
         return -1;
     }
@@ -237,13 +234,21 @@ public class FluTree {
         // It may help to read Piazza note @567, Stepwise refinement, when developing widthAtDepth.
         // Do not have calls that unnecessarily traverse the tree, causing the tree to be
         // traversed more than once.
-        // State whether this is a searching or a counting method:
+        // State whether this is a searching or a counting method: counting
 
         // Use this recursive definition:
         // ..... If d = 0, the answer is 1.
         // ..... If d > 0, the answer is: sum of widths of the children at depth d-1.
-
-        return 0;
+        if (d < 0) {
+            throw new IllegalArgumentException("Invalid Input");
+        } else if (d == 0) {
+            return 1;
+        } else if (d > 0 && childrenSize() == 0) { return 0; }
+        int count= 0;
+        for (FluTree c : children) {
+            count= count + c.widthAtDepth(d - 1);
+        }
+        return count;
 
     }
 
