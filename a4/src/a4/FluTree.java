@@ -1,9 +1,9 @@
 package a4;
-/* NetId(s): ekp38
+/* NetId(s): ekp38, cmd298
 
- * Name(s): Elena Peot
+ * Name(s): Elena Peot, Christopher M. Donohue
  * What I thought about this assignment:
- *
+ * I have no thoughts since I am incapable of thinking.
  *
  */
 
