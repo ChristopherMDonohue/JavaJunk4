@@ -10,6 +10,7 @@ package a4;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -151,8 +152,7 @@ public class FluTree {
         // State whether this is a searching or a counting method: counting
         if (childrenSize() == 0) {
             return 1;
-        } 
-        else {
+        } else {
             int s= 1;
             Iterator<FluTree> it= children.iterator();
             while (it.hasNext()) {
@@ -292,8 +292,20 @@ public class FluTree {
         // 4. Base Case: The root of this FluTree is c; i.e. the Route is just [c].
 
         // State whether this is a searching or a counting method:
-
-        return null;
+        if (c.equals(root)) {
+            LinkedList<Person> path= new LinkedList<>();
+            path.addFirst(c);
+            return path;
+        } else {
+            for (FluTree kid : children) {
+                if (kid.contains(c)) {
+                    LinkedList<Person> path= (LinkedList<Person>) kid.fluRouteTo(c);
+                    path.addFirst(root);
+                    return path;
+                }
+            }
+            return null;
+        }
     }
 
     /** If either child1 or child2 is null or is not in this FluTree, return null.<br>
@@ -339,7 +351,6 @@ public class FluTree {
          * You have a problem of writing this loop efficiently. You can't use a foreach loop
          * on both lists simultaneously. The simplest thing to do is to use List's
          * function toArray twice and then work with the array representations of the lists. */
-
         return null;
     }
 
