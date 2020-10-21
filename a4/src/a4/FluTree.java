@@ -206,7 +206,6 @@ public class FluTree {
                 if (d > -1) { return d + 1; }
             }
         }
-
         return -1;
     }
 
