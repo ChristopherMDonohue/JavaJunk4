@@ -151,8 +151,9 @@ public class FluTree {
         // State whether this is a searching or a counting method: counting
         if (childrenSize() == 0) {
             return 1;
-        } else {
-            int s= 0;
+        } 
+        else {
+            int s= 1;
             Iterator<FluTree> it= children.iterator();
             while (it.hasNext()) {
                 s= s + it.next().size();

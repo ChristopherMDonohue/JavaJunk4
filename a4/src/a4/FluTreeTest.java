@@ -1,11 +1,14 @@
 package a4;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import java.lang.Math;
 
 /** @author david gries */
 public class FluTreeTest {
@@ -94,6 +97,52 @@ public class FluTreeTest {
         dt.insert(personI, personH); // H, I
         return new FluTree(dt);
     }
+    
+    private FluTree singlePersonTree() {
+    	return new FluTree(personA);
+    }
+    
+    private FluTree listTree() {
+    	FluTree dt=new FluTree(personA);
+    	dt.insert(personB, personA);
+    	dt.insert(personC, personB);
+    	dt.insert(personD, personC);
+    	dt.insert(personE, personD);
+    	dt.insert(personF, personE);
+    	
+    	return new FluTree(dt);
+    	
+    }
+    
+    private FluTree randomTree() {
+    	List<Person> available = new LinkedList<Person> ();
+    	List<Person> inTree = new LinkedList<Person>();
+    	for (int i = 0; i < people.length; i++) {
+    		available.add(people[i]); 
+    	}
+    	int nextParent = (int) (Math.random()*9);
+    	Person nextP = available.remove(nextParent);
+    	FluTree rt = new FluTree (nextP);
+    	inTree.add(nextP);
+    	double add = Math.random();
+    	while (add <= 0.8 && !(available.isEmpty())) {
+    		nextParent = (int) (Math.random()*inTree.size());
+    		int nextChild = (int) (Math.random()*available.size());
+    		Person nextC = available.remove(nextChild);
+    		nextP = inTree.get(nextParent);
+    		rt.insert(nextC, nextP);
+    		inTree.add(nextC);
+    		add = Math.random();
+    		
+    	}
+    	return new FluTree (rt);
+    }
+    
+    @Test
+    public void testRandomTree() {
+    	FluTree dt = randomTree();
+    	System.out.println(toStringBrief(dt));
+    }
 
     /** test a call on makeTree1(). */
     @Test
@@ -106,6 +155,11 @@ public class FluTreeTest {
     @Test
     public void test1Insert() {
         FluTree st= new FluTree(personB);
+        assertThrows(IllegalArgumentException.class, () -> {st.insert(null,personB);});
+        assertThrows(IllegalArgumentException.class, () -> {st.insert(personC,null);});
+        assertThrows(IllegalArgumentException.class, () -> {st.insert(personB,personB);});
+        assertThrows(IllegalArgumentException.class, () -> {st.insert(personD,personC);});
+        
 
         // Test insert in the root
         FluTree dt2= st.insert(personC, personB);
@@ -118,6 +172,11 @@ public class FluTreeTest {
     public void test2size() {
         FluTree st= new FluTree(personC);
         assertEquals(1, st.size());
+        FluTree t1=makeTree1();
+        System.out.println(t1.size());
+        assertEquals(9,t1.size());
+        FluTree t2=listTree();
+        assertEquals(6,t2.size());
     }
 
     /** */
@@ -140,6 +199,25 @@ public class FluTreeTest {
         st.insert(personC, personB);
         st.insert(personD, personC);
         assertEquals(0, st.depth(personB));
+        assertEquals(2,st.depth(personD));
+        
+        FluTree t1=singlePersonTree();
+        assertEquals(0,t1.depth(personA));
+        assertEquals(-1,t1.depth(personB));
+        
+        FluTree t2=listTree();
+        assertEquals(0,t2.depth(personA));
+        assertEquals(3,t2.depth(personD));
+        assertEquals(5,t2.depth(personF));
+        assertEquals(-1,t2.depth(personI));
+        
+        FluTree t3=makeTree1();
+        assertEquals(0,t3.depth(personA));
+        assertEquals(1,t3.depth(personC));
+        assertEquals(2,t3.depth(personE));
+        assertEquals(4,t3.depth(personH));
+        assertEquals(5,t3.depth(personI));
+        assertEquals(-1,t3.depth(personK));
 
     }
 
