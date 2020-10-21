@@ -272,7 +272,21 @@ public class FluTreeTest {
     public void test8equals() {
         FluTree treeB1= new FluTree(personB);
         FluTree treeB2= new FluTree(personB);
+        FluTree treeA1= new FluTree(personA);
         assertEquals(true, treeB1.equals(treeB2));
+        assertEquals(false, treeB1.equals(treeA1));
+        treeB1.insert(personC, personB);
+        assertEquals(false, treeB1.equals(treeB2));
+        treeB2.insert(personC, personB);
+        assertEquals(true, treeB1.equals(treeB2));
+        treeB1.insert(personJ, personB);
+        treeB2.insert(personL, personC);
+        assertEquals(false, treeB1.equals(treeB2));
+        treeB2.insert(personJ, personB);
+        treeB1.insert(personL, personC);
+        treeB1.insert(personE, personA);
+        treeB2.insert(personE, personC);
+        assertEquals(false, treeB1.equals(treeB2));
     }
 
     // ===================================
