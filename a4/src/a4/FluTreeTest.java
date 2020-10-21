@@ -148,7 +148,11 @@ public class FluTreeTest {
     public void test5WidthAtDepth() {
         FluTree st= new FluTree(personB);
         assertEquals(1, st.widthAtDepth(0));
-
+        FluTree dt= makeTree1();
+        assertEquals(1, dt.widthAtDepth(0));
+        assertEquals(2, dt.widthAtDepth(1));
+        assertEquals(3, dt.widthAtDepth(2));
+        assertEquals(0, dt.widthAtDepth(7));
     }
 
     @SuppressWarnings("javadoc")
