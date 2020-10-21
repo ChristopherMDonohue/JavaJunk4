@@ -401,9 +401,21 @@ public class FluTree {
         // Second, A child of one tree cannot equal more than one child of
         // tree because the names of Person's are all unique;
         // there are no duplicates.
+        if (ob == null || getClass() != ob.getClass()) { return false; }
+        FluTree obFT= (FluTree) ob;
+        if (childrenSize() != obFT.childrenSize()) { return false; }
+        for (FluTree t : children) {
+            if (!help(t, obFT.children)) { return false; }
+        }
+        return true;
+    }
 
+    /** Return true iff t1 equals some member of s2 */
+    private boolean help(FluTree t1, Set<FluTree> s2) {
+        for (FluTree s : s2) {
+            if (t1.equals(s)) { return true; }
+        }
         return false;
-
     }
 
     /* ========================================================================
