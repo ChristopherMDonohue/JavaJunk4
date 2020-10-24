@@ -435,6 +435,7 @@ public class FluTree {
         if (ob == null || getClass() != ob.getClass()) { return false; }
         FluTree obFT= (FluTree) ob;
         if (childrenSize() != obFT.childrenSize()) { return false; }
+        if (!root.equals(obFT.root))  { return false; }
         for (FluTree t : children) {
             if (!help(t, obFT.children)) { return false; }
         }

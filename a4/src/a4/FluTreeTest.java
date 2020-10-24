@@ -270,6 +270,24 @@ public class FluTreeTest {
         assertEquals(null,st.commonAncestor(personD, personC));
         assertEquals(null,st.commonAncestor(personC, personD));
         assertEquals(null,st.commonAncestor(personE, personD));
+        
+        FluTree t1=makeTree1();
+        assertEquals(personA,t1.commonAncestor(personA, personG));
+        assertEquals(personA,t1.commonAncestor(personB, personC));
+        assertEquals(personB,t1.commonAncestor(personD, personG));
+        assertEquals(personA,t1.commonAncestor(personC, personH));
+        assertEquals(personI,t1.commonAncestor(personI, personI));
+        assertEquals(personF,t1.commonAncestor(personF, personH));
+       
+        FluTree t2=listTree();
+        assertEquals(personA,t2.commonAncestor(personA, personE));
+        assertEquals(personA,t2.commonAncestor(personE, personA));
+        assertEquals(personD,t2.commonAncestor(personD, personE));
+        
+        FluTree t3=singlePersonTree();
+        assertEquals(personA,t3.commonAncestor(personA, personA));
+        assertEquals(null,t3.commonAncestor(personB, personA));
+        assertEquals(null,t3.commonAncestor(personA, personB));
 
     }
 
@@ -290,7 +308,7 @@ public class FluTreeTest {
         assertEquals(false, treeB1.equals(treeB2));
         treeB2.insert(personJ, personB);
         treeB1.insert(personL, personC);
-        treeB1.insert(personE, personA);
+//        treeB1.insert(personE, personA);
         treeB2.insert(personE, personC);
         assertEquals(false, treeB1.equals(treeB2));
     }
