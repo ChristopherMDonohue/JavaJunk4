@@ -264,6 +264,12 @@ public class FluTreeTest {
         st.insert(personC, personB);
         Person p= st.commonAncestor(personC, personC);
         assertEquals(personC, p);
+        assertEquals(null,st.commonAncestor(null, null));
+        assertEquals(null,st.commonAncestor(null, personC));
+        assertEquals(null,st.commonAncestor(personC, null));
+        assertEquals(null,st.commonAncestor(personD, personC));
+        assertEquals(null,st.commonAncestor(personC, personD));
+        assertEquals(null,st.commonAncestor(personE, personD));
 
     }
 
