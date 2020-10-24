@@ -352,6 +352,9 @@ public class FluTree {
          * on both lists simultaneously. The simplest thing to do is to use List's
          * function toArray twice and then work with the array representations of the lists. */
 
+    	if (child1==null||child2==null) {
+    		return null;
+    	}
         List<Person> l1= fluRouteTo(child1);
         List<Person> l2= fluRouteTo(child2);
         if (l1 == null || l2 == null) { return null; }
