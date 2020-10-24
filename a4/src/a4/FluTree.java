@@ -292,9 +292,6 @@ public class FluTree {
         // 4. Base Case: The root of this FluTree is c; i.e. the Route is just [c].
 
         // State whether this is a searching or a counting method:
-    	if (c==null) {
-    		return null;
-    	}
         if (c.equals(root)) {
             LinkedList<Person> path= new LinkedList<>();
             path.addFirst(c);
@@ -354,35 +351,30 @@ public class FluTree {
          * You have a problem of writing this loop efficiently. You can't use a foreach loop
          * on both lists simultaneously. The simplest thing to do is to use List's
          * function toArray twice and then work with the array representations of the lists. */
-    	
-    	List<Person> l1=fluRouteTo(child1);
-    	List<Person> l2=fluRouteTo(child2);
-    	if (l1==null|| l2==null) {
-    		return null;
-    	}
+
+        List<Person> l1= fluRouteTo(child1);
+        List<Person> l2= fluRouteTo(child2);
+        if (l1 == null || l2 == null) { return null; }
         Person[] l1Array= {};
         Person[] l2Array= {};
-        l1Array=l1.toArray(l1Array);
-        l2Array=l2.toArray(l2Array);
+        l1Array= l1.toArray(l1Array);
+        l2Array= l2.toArray(l2Array);
         int i;
-        int len=min(l1Array.length,l2Array.length);
-        for (i=1; i<len; i++) {
-        	if (l1Array[i]!=l2Array[i]) {
-        		return l1Array[i-1];
-        	}
+        int len= min(l1Array.length, l2Array.length);
+        for (i= 1; i < len; i++ ) {
+            if (l1Array[i] != l2Array[i]) { return l1Array[i - 1]; }
         }
-        return l1Array[i-1]; 
-        
+        return l1Array[i - 1];
+
     }
-    
-    /** Return the minimum of the ints i1 and i2*/
-    private int min(int i1,int i2) {
-    	if (i1<i2) {
-    		return i1;
-    	}
-    	else {
-    		return i2;
-    	}
+
+    /** Return the minimum of the ints i1 and i2 */
+    private int min(int i1, int i2) {
+        if (i1 < i2) {
+            return i1;
+        } else {
+            return i2;
+        }
     }
 
     /** Return true iff this is equal to ob.<br>
@@ -435,7 +427,7 @@ public class FluTree {
         if (ob == null || getClass() != ob.getClass()) { return false; }
         FluTree obFT= (FluTree) ob;
         if (childrenSize() != obFT.childrenSize()) { return false; }
-        if (!root.equals(obFT.root))  { return false; }
+        if (!root.equals(obFT.root)) { return false; }
         for (FluTree t : children) {
             if (!help(t, obFT.children)) { return false; }
         }
