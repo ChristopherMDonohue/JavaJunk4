@@ -292,7 +292,7 @@ public class FluTree {
         // 4. Base Case: The root of this FluTree is c; i.e. the Route is just [c].
 
         // State whether this is a searching or a counting method:
-        if (c.equals(root)) {
+        if (root.equals(c)) {
             LinkedList<Person> path= new LinkedList<>();
             path.addFirst(c);
             return path;
@@ -304,8 +304,8 @@ public class FluTree {
                     return path;
                 }
             }
-            return null;
         }
+        return null;
     }
 
     /** If either child1 or child2 is null or is not in this FluTree, return null.<br>
@@ -352,9 +352,6 @@ public class FluTree {
          * on both lists simultaneously. The simplest thing to do is to use List's
          * function toArray twice and then work with the array representations of the lists. */
 
-    	if (child1==null||child2==null) {
-    		return null;
-    	}
         List<Person> l1= fluRouteTo(child1);
         List<Person> l2= fluRouteTo(child2);
         if (l1 == null || l2 == null) { return null; }
