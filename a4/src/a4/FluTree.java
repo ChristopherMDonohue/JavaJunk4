@@ -1,10 +1,15 @@
 package a4;
 /* NetId(s): ekp38, cmd298
 
- * Name(s): Elena Peot, Christopher M. Donohue
+ * Name(s): Elena K. Peot, Christopher M. Donohue
  * What I thought about this assignment:
  * I have no thoughts since I am incapable of thinking.
- *
+ * Liked that thingies could be solved using iterators and recursion
+ * because recursion is like you get other things to do the work but 
+ * you're still doing the worKKKKKK
+ * Liked that you gave us that little graphic.
+ * 
+ * Recursive SEQEUNCES are more fun!
  */
 
 import java.util.HashMap;
@@ -39,7 +44,7 @@ public class FluTree {
      * Example: for 3 hours 15 minutes, use 3.25<br>
      * Example: for 4 hours 30 minutes, use 4.50<br>
      * Example: for 5 hours, use 5 or 5.0 */
-    public static double timeSpent= -1;
+    public static double timeSpent= 5.17;
 
     /** The String to be used as a separator in toString() */
     public static final String SEPARATOR= " - ";
@@ -291,7 +296,7 @@ public class FluTree {
 
         // 4. Base Case: The root of this FluTree is c; i.e. the Route is just [c].
 
-        // State whether this is a searching or a counting method:
+        // State whether this is a searching or a counting method: searching!!!!
         if (root.equals(c)) {
             LinkedList<Person> path= new LinkedList<>();
             path.addFirst(c);
